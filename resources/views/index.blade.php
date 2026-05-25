@@ -1,43 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('template')
 
-<head>
-    <title>5026241071</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+@section('title', 'Data Pegawai')
 
-<body>
+@section('konten')
 
-    <div class="container">
-        <center>
-            <h1>5026241071 Musthafa Daud Gathfan</h1>
-            <p>
-                <a href="pert5" terget="_blank" class="btn btn-primary">
-                    Pertemuan 5
-                </a>
-            </p>
-            <p>
-                <a href="linktree" terget="_blank" class="btn btn-primary">
-                    Tugas Link Tree
-                </a>
-            </p>
-            <p>
-                <a href="" terget="_blank" class="btn btn-primary">
-                    Tugas Make Over Akun Instagram
-                </a>
-            </p>
-            <p>
-                <a href="" terget="_blank" class="btn btn-primary">
-                    UTS
-                </a>
-            </p>
-        </center>
-    </div>
-</body>
+    <a href="/pegawai/tambah" class="btn btn-primary"> + Tambah Pegawai Baru</a>
 
-</html>
+    <br />
+    <br />
+
+    <p>Cari Data Pegawai :</p>
+    <form action="/pegawai/cari" method="GET">
+        <input type="text" name="cari" placeholder="Cari Pegawai .." class="form-control">
+        <input type="submit" value="CARI" class="btn btn-light">
+    </form>
+
+    <br />
+
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>Nama</th>
+            <th>Jabatan</th>
+            <th>Umur</th>
+            <th>Alamat</th>
+            <th>Opsi</th>
+        </tr>
+        @foreach ($pegawai as $p)
+            <tr>
+                <td>{{ $p->pegawai_nama }}</td>
+                <td>{{ $p->pegawai_jabatan }}</td>
+                <td>{{ $p->pegawai_umur }}</td>
+                <td>{{ $p->pegawai_alamat }}</td>
+                <td>
+                    <a href="/pegawai/edit/{{ $p->pegawai_id }}" class="btn btn-warning">Edit</a>
+                    |
+                    <a href="/pegawai/hapus/{{ $p->pegawai_id }}" class="btn btn-danger">Hapus</a>
+                </td>
+            </tr>
+        @endforeach
+
+    </table>
+
+
+    {{ $pegawai->links() }}
+
+
+@endsection
